@@ -18,7 +18,7 @@ import { Link, Stack } from "expo-router";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import TaskModal from "./TaskModal";
 
-export default function TaskCard({openTaskForm, setTaskForm} : any) {
+export default function TaskCard({ openTaskForm, setTaskForm }: any) {
   const [isChecked, setChecked] = useState(false);
   const {
     control,
@@ -50,6 +50,7 @@ export default function TaskCard({openTaskForm, setTaskForm} : any) {
               color: "#000000",
               fontFamily: "Poppins-SemiBold",
               fontSize: 12,
+              width: "80%",
             }}
           >
             Daily Task
@@ -83,7 +84,6 @@ export default function TaskCard({openTaskForm, setTaskForm} : any) {
             </View>
           )}
         />
-      
       </View>
     </>
   );

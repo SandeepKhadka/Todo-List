@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { useFonts } from "expo-font";
 import TaskCard from "@/components/TaskCard";
 import TaskModal from "@/components/TaskModal";
+import TaskForm from "@/components/TaskForm";
 const Todo = () => {
   const [openTaskForm, setTaskForm] = useState(false);
   const [fontsLoaded] = useFonts({
@@ -19,11 +20,16 @@ const Todo = () => {
         </ThemedView>
         <ThemedView style={styles.task}>
           {openTaskForm && (
-            <TaskModal
+            <TaskForm
               onPress={() => {
                 setTaskForm(false);
               }}
             />
+            // <TaskModal
+            //   onPress={() => {
+            //     setTaskForm(false);
+            //   }}
+            // />
           )}
           <ThemedText
             style={{
