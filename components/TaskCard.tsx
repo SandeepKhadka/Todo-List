@@ -1,7 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { ThemedText } from "./ThemedText";
 import { ThemedView } from "./ThemedView";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useState } from "react";
 import { useFonts } from "expo-font";
@@ -36,7 +36,7 @@ export default function TaskCard() {
         >
           Daily Task
         </ThemedText>
-        <FontAwesome size={25} name="plus" color={"#50C2C9"} />
+        {AddTask()}
       </View>
       <FlatList
         data={taskData}
@@ -53,6 +53,7 @@ export default function TaskCard() {
                 marginLeft: 10,
                 fontFamily: "Poppins-SemiBold",
                 fontSize: 12,
+                width: "100%",
               }}
             >
               {item}
@@ -61,6 +62,15 @@ export default function TaskCard() {
         )}
       />
     </View>
+  );
+}
+
+function AddTask() {
+  const [openTaskForm, setTaskForm] = useState(false);
+  return (
+    <Pressable onPress={() => setTaskForm(true)}>
+      <FontAwesome size={25} name="plus" color={"#50C2C9"} />
+    </Pressable>
   );
 }
 
@@ -82,6 +92,6 @@ const styles = StyleSheet.create({
   taskLists: {
     flexDirection: "row",
     width: "100%",
-    margin: 8,
+    margin: 10,
   },
 });
