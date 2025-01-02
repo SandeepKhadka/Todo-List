@@ -8,6 +8,7 @@ import { useFonts } from "expo-font";
 
 export default function TaskCard() {
   const [isChecked, setChecked] = useState(false);
+  const [openTaskForm, setTaskForm] = useState(false);
   const [fontsLoaded] = useFonts({
     "Poppins-SemiBold": require("../assets/fonts/Poppins SemiBold.ttf"),
   });
@@ -36,7 +37,12 @@ export default function TaskCard() {
         >
           Daily Task
         </ThemedText>
-        {AddTask()}
+        <AddTask
+          onPress={() => {
+            setTaskForm(true);
+          }}
+        />
+        {openTaskForm && }
       </View>
       <FlatList
         data={taskData}
@@ -65,10 +71,9 @@ export default function TaskCard() {
   );
 }
 
-function AddTask() {
-  const [openTaskForm, setTaskForm] = useState(false);
+function AddTask({ onPress }: { onPress: () => void }) {
   return (
-    <Pressable onPress={() => setTaskForm(true)}>
+    <Pressable onPress={onPress}>
       <FontAwesome size={25} name="plus" color={"#50C2C9"} />
     </Pressable>
   );
