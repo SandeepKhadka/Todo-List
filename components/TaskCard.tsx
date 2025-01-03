@@ -103,11 +103,11 @@ export function CloseTaskForm({ onPress }: { onPress: () => void }) {
       style={{
         position: "absolute",
         top: 0,
-        right: 0,
+        right: 10,
       }}
       onPress={onPress}
     >
-      <FontAwesome size={22} name="close" color={"#05050548"} />
+      <FontAwesome size={28} name="close" color={"#05050548"} />
     </Pressable>
   );
 }

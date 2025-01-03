@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut, SlideInDown, SlideInUp } from "react-native-reanimated";
 import { Controller, useForm } from "react-hook-form";
 import { CloseTaskForm } from "./TaskCard";
 
@@ -36,11 +36,13 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
         onChange={handleSheetChanges}
         handleIndicatorStyle={{ display: "none" }}
         handleStyle={{ display: "none" }}
+        onClose={onPress}
       >
         <KeyboardAvoidingView style={{ flex: 1 }}>
           <BottomSheetView style={styles.contentContainer}>
             <Animated.View
               entering={FadeIn}
+              exiting={FadeOut}
               style={{
                 flex: 1,
                 justifyContent: "center",
@@ -51,6 +53,7 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
 
               <Animated.View
                 entering={SlideInDown}
+                exiting={SlideInUp}
                 style={{
                   width: "95%",
                   height: "90%",
@@ -73,17 +76,17 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
                     name="task_name"
                     rules={{ required: "You must enter task name" }}
                   />
-                  {/* {errors.name && (
-            <Text style={styles.errorText}>{errors.name.message}</Text>
-          )} */}
+                  {errors.name && (
+                    <Text style={styles.errorText}>{errors.name.message}</Text>
+                  )}
                   {/* Submit Butonu */}
                   <Button title="Submit" />
 
                   {/* Gönderilen Veriler */}
                 </View>
               </Animated.View>
-              <CloseTaskForm onPress={onPress} />
             </Animated.View>
+            <CloseTaskForm onPress={onPress} />
           </BottomSheetView>
         </KeyboardAvoidingView>
       </BottomSheet>

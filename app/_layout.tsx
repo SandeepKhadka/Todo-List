@@ -14,6 +14,7 @@ const RootLayout = () => {
         tabBarStyle: {
           backgroundColor: Colors[theme].background,
         },
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen
