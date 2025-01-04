@@ -1,15 +1,15 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   Button,
-  KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import Animated, { FadeIn, FadeOut, SlideInDown, SlideInUp } from "react-native-reanimated";
+import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import { Controller, useForm } from "react-hook-form";
 import { CloseTaskForm } from "./TaskCard";
 
@@ -27,6 +27,10 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
     formState: { errors },
   } = useForm();
 
+  const onSubmit = (data) => {
+    console.log(data)
+    Alert.alert(JSON.stringify(data));
+  };
   // renders
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -38,57 +42,53 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
         handleStyle={{ display: "none" }}
         onClose={onPress}
       >
-        <KeyboardAvoidingView style={{ flex: 1 }}>
-          <BottomSheetView style={styles.contentContainer}>
+        <BottomSheetView style={styles.contentContainer}>
+          <Animated.View
+            entering={FadeIn}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {/* Dismiss modal when pressing outside */}
+
             <Animated.View
-              entering={FadeIn}
-              exiting={FadeOut}
+              entering={SlideInDown}
               style={{
-                flex: 1,
-                justifyContent: "center",
+                width: "95%",
+                height: "90%",
                 alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "white",
               }}
             >
-              {/* Dismiss modal when pressing outside */}
-
-              <Animated.View
-                entering={SlideInDown}
-                exiting={SlideInUp}
-                style={{
-                  width: "95%",
-                  height: "90%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "white",
-                }}
-              >
-                <View style={styles.formContainer}>
-                  {/* Form Girdileri */}
-                  <Controller
-                    control={control}
-                    render={({ field }) => (
-                      <TextInput
-                        {...field}
-                        style={styles.input}
-                        placeholder="Task Name"
-                      />
-                    )}
-                    name="task_name"
-                    rules={{ required: "You must enter task name" }}
-                  />
-                  {errors.name && (
-                    <Text style={styles.errorText}>{errors.name.message}</Text>
+              <View style={styles.formContainer}>
+                {/* Form Girdileri */}
+                <Controller
+                  control={control}
+                  render={({ field }) => (
+                    <TextInput
+                      {...field}
+                      style={styles.input}
+                      placeholder="Task Name"
+                    />
                   )}
-                  {/* Submit Butonu */}
-                  <Button title="Submit" />
+                  name="task_name"
+                  rules={{ required: "You must enter task name" }}
+                />
+                {errors.name && (
+                  <Text style={styles.errorText}>{errors.name.message}</Text>
+                )}
+                {/* Submit Butonu */}
+                <Button title="Submit" onPress={handleSubmit(onSubmit)} />
 
-                  {/* Gönderilen Veriler */}
-                </View>
-              </Animated.View>
+                {/* Gönderilen Veriler */}
+              </View>
             </Animated.View>
-            <CloseTaskForm onPress={onPress} />
-          </BottomSheetView>
-        </KeyboardAvoidingView>
+          </Animated.View>
+          <CloseTaskForm onPress={onPress} />
+        </BottomSheetView>
       </BottomSheet>
     </GestureHandlerRootView>
   );
