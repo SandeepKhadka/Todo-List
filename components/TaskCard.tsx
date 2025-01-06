@@ -1,6 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { ThemedText } from "./ThemedText";
 import {
+  Alert,
   FlatList,
   Pressable,
   StyleSheet,
@@ -11,6 +12,7 @@ import Checkbox from "expo-checkbox";
 import { useState } from "react";
 import { useFonts } from "expo-font";
 import { useForm } from "react-hook-form";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function TaskCard({ openTaskForm, setTaskForm }: any) {
   const [isChecked, setChecked] = useState(false);
@@ -35,6 +37,7 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
     "Learn Book by 11pm",
     "Go to Sleep after 11pm",
   ];
+  loadData();
   return (
     <>
       <View style={styles.taskCard}>
@@ -106,6 +109,19 @@ export function CloseTaskForm({ onPress }: { onPress: () => void }) {
   );
 }
 
+const loadData = async () => {
+  try {
+    const storedData = await AsyncStorage.getItem("data");
+    if (storedData) {
+      console.log("Retrieved Data", JSON.parse(storedData));
+    } else {
+      console.log("No data found");
+    }
+  } catch (error) {
+    console.error("Error saving data", error);
+    Alert.alert(`Error Failed to save data${error}`);
+  }
+};
 const styles = StyleSheet.create({
   taskCard: {
     flex: 1,

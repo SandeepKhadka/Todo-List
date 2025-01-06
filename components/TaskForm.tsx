@@ -5,6 +5,7 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import { Controller, useForm } from "react-hook-form";
 import { CloseTaskForm } from "./TaskCard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TaskForm = ({ onPress }: { onPress: () => void }) => {
   // ref
@@ -20,9 +21,17 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    Alert.alert(JSON.stringify(data));
+  const onSubmit = async (data: any) => {
+    const todosData = Object.values(data);
+
+    try {
+      await AsyncStorage.setItem("data", JSON.stringify(todosData));
+      Alert.alert("Success - Data Stored");
+      onPress();
+    } catch (error) {
+      console.error("Error saving data", error);
+      Alert.alert(`Error Failed to save data${error}`);
+    }
   };
   // renders
   return (
