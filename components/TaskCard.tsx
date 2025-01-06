@@ -1,22 +1,16 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { ThemedText } from "./ThemedText";
-import { ThemedView } from "./ThemedView";
 import {
-  Button,
   FlatList,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useState } from "react";
 import { useFonts } from "expo-font";
-import { Controller, useForm } from "react-hook-form";
-import { Link, Stack } from "expo-router";
-import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
-import TaskModal from "./TaskModal";
+import { useForm } from "react-hook-form";
 
 export default function TaskCard({ openTaskForm, setTaskForm }: any) {
   const [isChecked, setChecked] = useState(false);

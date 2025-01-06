@@ -1,10 +1,9 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import {StyleSheet,} from "react-native";
 import React, { useState } from "react";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { useFonts } from "expo-font";
 import TaskCard from "@/components/TaskCard";
-import TaskModal from "@/components/TaskModal";
 import TaskForm from "@/components/TaskForm";
 const Todo = () => {
   const [openTaskForm, setTaskForm] = useState(false);

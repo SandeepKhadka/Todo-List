@@ -1,12 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
@@ -27,8 +20,8 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = (data: any) => {
+    console.log(data);
     Alert.alert(JSON.stringify(data));
   };
   // renders
@@ -67,11 +60,13 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
                 {/* Form Girdileri */}
                 <Controller
                   control={control}
-                  render={({ field }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                      {...field}
+                      // {...field}
                       style={styles.input}
                       placeholder="Task Name"
+                      onChangeText={(value) => onChange(value)}
+                      value={value}
                     />
                   )}
                   name="task_name"
