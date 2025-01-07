@@ -22,7 +22,7 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    const todosData = Object.values(data);
+    const todosData = [{taskname :Object.values(data), isChecked: false}]
 
     try {
       const todos = await AsyncStorage.getItem("data");
@@ -30,7 +30,7 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
       const updatedTodo = [...allTodos, ...todosData];
       await AsyncStorage.setItem("data", JSON.stringify(updatedTodo));
 
-      Alert.alert("Success - Todo Added");
+      Alert.alert("Todo Added Successfully");
       onPress();
     } catch (error) {
       console.error("Error saving data", error);

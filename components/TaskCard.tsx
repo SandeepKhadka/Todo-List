@@ -60,7 +60,7 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
   // UseEffect to load data on component mount
   useEffect(() => {
     loadAndCombineData();
-  }, []);
+  }, [data]);
 
   return (
     <>
