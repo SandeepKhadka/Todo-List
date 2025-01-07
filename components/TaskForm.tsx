@@ -25,14 +25,19 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
     const todosData = Object.values(data);
 
     try {
-      await AsyncStorage.setItem("data", JSON.stringify(todosData));
-      Alert.alert("Success - Data Stored");
+      const todos = await AsyncStorage.getItem("data");
+      const allTodos = todos != null ? JSON.parse(todos) : [];
+      const updatedTodo = [...allTodos, ...todosData];
+      await AsyncStorage.setItem("data", JSON.stringify(updatedTodo));
+
+      Alert.alert("Success - Todo Added");
       onPress();
     } catch (error) {
       console.error("Error saving data", error);
-      Alert.alert(`Error Failed to save data${error}`);
+      Alert.alert(`Error: Failed to save data`);
     }
   };
+
   // renders
   return (
     <GestureHandlerRootView style={styles.container}>
