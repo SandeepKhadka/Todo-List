@@ -47,10 +47,11 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
       // ];
 
       // Combine data
-      const combinedData : any = [...existingTodos];
+      const combinedData: any = [...existingTodos];
+
+      setData(combinedData);
 
       // Update state
-      setData(combinedData);
     } catch (error) {
       console.error("Error loading or combining data:", error);
       Alert.alert("Error", "Failed to load data.");
@@ -61,6 +62,19 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
   useEffect(() => {
     loadAndCombineData();
   }, [data]);
+  const toggleCheckbox = async (index) => {
+    const updatedData = [...data];
+    updatedData[index].isChecked = !updatedData[index].isChecked; // Toggle the checkbox state
+
+    try {
+      // Update AsyncStorage with the new data
+      await AsyncStorage.setItem("data", JSON.stringify(updatedData));
+      setData(updatedData); // Update the state to re-render the component
+    } catch (error) {
+      console.error("Error saving data:", error);
+      Alert.alert("Error", "Failed to save data.");
+    }
+  };
 
   return (
     <>
@@ -84,13 +98,13 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
         </View>
         <FlatList
           data={data}
-          keyExtractor={(item, index) => String(index)}
-          renderItem={({ item }) => (
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
             <View style={styles.taskLists}>
               <Checkbox
-                value={isChecked}
-                onValueChange={setChecked}
-                color={isChecked ? "#4630EB" : undefined}
+                value={item.isChecked}
+                onValueChange={() => toggleCheckbox(index)} // Call toggleCheckbox when checkbox is pressed
+                color={item.isChecked ? "#4630EB" : undefined} // Highlight color for checked box
               />
               <Text
                 style={{
@@ -100,7 +114,7 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
                   width: "100%",
                 }}
               >
-                {item}
+                {item.task_name}
               </Text>
             </View>
           )}

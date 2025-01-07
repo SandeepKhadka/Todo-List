@@ -22,8 +22,7 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    const todosData = [{taskname :Object.values(data), isChecked: false}]
-
+    const todosData = [{...data, isChecked: false}]
     try {
       const todos = await AsyncStorage.getItem("data");
       const allTodos = todos != null ? JSON.parse(todos) : [];
