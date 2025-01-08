@@ -78,11 +78,11 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
   };
 
   const deleteTodo = async (index: any) => {
-    const updatedData = data.filter((_, i) => i !== index); 
+    const updatedData = data.filter((_, i) => i !== index);
 
     try {
-      await AsyncStorage.setItem("data", JSON.stringify(updatedData)); 
-      setData(updatedData); 
+      await AsyncStorage.setItem("data", JSON.stringify(updatedData));
+      setData(updatedData);
       // Alert.alert("Deleted", "The task has been deleted.");
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -118,7 +118,7 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
               <Checkbox
                 value={item.isChecked}
                 onValueChange={() => toggleCheckbox(index)}
-                color={item.isChecked ? "#4630EB" : undefined} 
+                color={item.isChecked ? "#4630EB" : undefined}
               />
               <Text
                 style={{
@@ -128,6 +128,9 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
                   width: "100%",
                 }}
                 onPress={() => toggleCheckbox(index)}
+                onLongPress={() => {
+                  setTaskForm(true);
+                }}
               >
                 {item.task_name}
               </Text>
