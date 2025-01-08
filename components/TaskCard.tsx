@@ -6,6 +6,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import Checkbox from "expo-checkbox";
@@ -76,6 +77,19 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
     }
   };
 
+  const deleteTodo = async (index: any) => {
+    const updatedData = data.filter((_, i) => i !== index); 
+
+    try {
+      await AsyncStorage.setItem("data", JSON.stringify(updatedData)); 
+      setData(updatedData); 
+      // Alert.alert("Deleted", "The task has been deleted.");
+    } catch (error) {
+      console.error("Error deleting task:", error);
+      Alert.alert("Error", "Failed to delete task.");
+    }
+  };
+
   return (
     <>
       <View style={styles.taskCard}>
@@ -103,8 +117,8 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
             <View style={styles.taskLists}>
               <Checkbox
                 value={item.isChecked}
-                onValueChange={() => toggleCheckbox(index)} // Call toggleCheckbox when checkbox is pressed
-                color={item.isChecked ? "#4630EB" : undefined} // Highlight color for checked box
+                onValueChange={() => toggleCheckbox(index)}
+                color={item.isChecked ? "#4630EB" : undefined} 
               />
               <Text
                 style={{
@@ -113,9 +127,20 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
                   fontSize: 12,
                   width: "100%",
                 }}
+                onPress={() => toggleCheckbox(index)}
               >
                 {item.task_name}
               </Text>
+              <TouchableOpacity
+                onPress={() => deleteTodo(index)}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 12,
+                }}
+              >
+                <FontAwesome size={20} name="close" color={"#fb0404d9"} />
+              </TouchableOpacity>
             </View>
           )}
         />
@@ -147,22 +172,6 @@ export function CloseTaskForm({ onPress }: { onPress: () => void }) {
   );
 }
 
-const loadData = async () => {
-  try {
-    const storedData = await AsyncStorage.getItem("data");
-    if (storedData) {
-      const parsedData = JSON.parse(storedData);
-      return parsedData;
-      // return  JSON.parse(storedData)
-      // console.log("Retrieved Data", JSON.parse(storedData));
-    } else {
-      console.log("No data found");
-    }
-  } catch (error) {
-    console.error("Error saving data", error);
-    Alert.alert(`Error Failed to save data${error}`);
-  }
-};
 const styles = StyleSheet.create({
   taskCard: {
     flex: 1,
