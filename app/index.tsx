@@ -39,7 +39,7 @@ const Todo = () => {
           >
             Task list
           </ThemedText>
-          <TaskCard openTaskForm={openTaskForm} setTaskForm={setTaskForm} />
+          <TaskCard openTaskForm={openTaskForm} setTaskForm={setTaskForm}/>
         </ThemedView>
       </ThemedView>
     </ThemedView>
