@@ -15,7 +15,7 @@ import { useFonts } from "expo-font";
 import { useForm } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function TaskCard({ openTaskForm, setTaskForm }: any) {
+export default function TaskCard({ openTaskForm, setTaskForm, setUpdatedValue }: any) {
   const [isChecked, setChecked] = useState(false);
   const [data, setData] = useState([]);
   const {
@@ -129,6 +129,7 @@ export default function TaskCard({ openTaskForm, setTaskForm }: any) {
                 }}
                 onPress={() => toggleCheckbox(index)}
                 onLongPress={() => {
+                  setUpdatedValue(item)
                   setTaskForm(true);
                 }}
               >

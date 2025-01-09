@@ -1,4 +1,4 @@
-import {StyleSheet,} from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
@@ -7,6 +7,7 @@ import TaskCard from "@/components/TaskCard";
 import TaskForm from "@/components/TaskForm";
 const Todo = () => {
   const [openTaskForm, setTaskForm] = useState(false);
+  const [updatedValue, setUpdatedValue] = useState("");
   const [fontsLoaded] = useFonts({
     "Poppins-SemiBold": require("../assets/fonts/Poppins SemiBold.ttf"),
   });
@@ -20,7 +21,10 @@ const Todo = () => {
         <ThemedView style={styles.task}>
           {openTaskForm && (
             <TaskForm
+              updatedValue={updatedValue}
+              setUpdatedValue={setUpdatedValue}
               onPress={() => {
+                setUpdatedValue("")
                 setTaskForm(false);
               }}
             />
@@ -39,7 +43,11 @@ const Todo = () => {
           >
             Task list
           </ThemedText>
-          <TaskCard openTaskForm={openTaskForm} setTaskForm={setTaskForm}/>
+          <TaskCard
+            openTaskForm={openTaskForm}
+            setTaskForm={setTaskForm}
+            setUpdatedValue={setUpdatedValue}
+          />
         </ThemedView>
       </ThemedView>
     </ThemedView>

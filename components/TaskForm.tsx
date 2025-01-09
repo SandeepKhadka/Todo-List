@@ -7,7 +7,15 @@ import { Controller, useForm } from "react-hook-form";
 import { CloseTaskForm } from "./TaskCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const TaskForm = ({ onPress }: { onPress: () => void }) => {
+const TaskForm = ({
+  onPress,
+  updatedValue,
+  setUpdatedValue,
+}: {
+  onPress: () => void;
+  updatedValue: any;
+  setUpdatedValue: any;
+}) => {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -22,18 +30,47 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    const todosData = [{...data, isChecked: false}]
-    try {
-      const todos = await AsyncStorage.getItem("data");
-      const allTodos = todos != null ? JSON.parse(todos) : [];
-      const updatedTodo = [...allTodos, ...todosData];
-      await AsyncStorage.setItem("data", JSON.stringify(updatedTodo));
+    // Check if we are editing an existing todo or adding a new one
+    if (updatedValue) {
+      // This means you're in edit mode and need to update an existing todo
+      try {
+        const todos = await AsyncStorage.getItem("data");
+        const allTodos = todos != null ? JSON.parse(todos) : [];
+        console.log("I am here at update");
+        console.log(updatedValue.id);
+        // Find the todo to update using the ID and update it
+        const updatedTodos = allTodos.map((todo: any) =>
+          todo.id === updatedValue.id
+            ? { ...todo, task_name: data.task_name, isChecked: false }
+            : todo
+        );
 
-      Alert.alert("Todo Added Successfully");
-      onPress();
-    } catch (error) {
-      console.error("Error saving data", error);
-      Alert.alert(`Error: Failed to save data`);
+        // Save the updated todos list to AsyncStorage
+        await AsyncStorage.setItem("data", JSON.stringify(updatedTodos));
+
+        Alert.alert("Todo Updated Successfully");
+        onPress();
+      } catch (error) {
+        console.error("Error updating data", error);
+        Alert.alert(`Error: Failed to update data`);
+      }
+    } else {
+      // This block handles the creation of a new todo
+      const todosData = [
+        { ...data, isChecked: false, id: Date.now().toString() },
+      ];
+      try {
+        const todos = await AsyncStorage.getItem("data");
+        const allTodos = todos != null ? JSON.parse(todos) : [];
+        const updatedTodo = [...allTodos, ...todosData];
+        await AsyncStorage.setItem("data", JSON.stringify(updatedTodo));
+
+        Alert.alert("Todo Added Successfully");
+        onPress();
+      } catch (error) {
+        console.error("Error saving data", error);
+        Alert.alert(`Error: Failed to save data`);
+      }
     }
   };
 
@@ -70,21 +107,35 @@ const TaskForm = ({ onPress }: { onPress: () => void }) => {
               }}
             >
               <View style={styles.formContainer}>
+                <Text style={{ marginBottom: 10, fontSize: 18 }}>
+                  Add/Update Task
+                </Text>
                 {/* Form Girdileri */}
                 <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                      // {...field}
-                      style={styles.input}
-                      placeholder="Task Name"
-                      onChangeText={(value) => onChange(value)}
-                      value={value}
-                    />
+                    <>
+                      {/* Conditionally render TextInput for edit or new task */}
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Task Name"
+                        onChangeText={(text) => {
+                          setUpdatedValue(text)
+                          onChange(text);
+                        }}
+                        value={
+                          updatedValue !== "" ? updatedValue.task_name : value
+                        } // For editing or adding new
+                        keyboardType="default"
+                        multiline={false}
+                        
+                      />
+                    </>
                   )}
                   name="task_name"
                   rules={{ required: "You must enter task name" }}
                 />
+
                 {errors.name && (
                   <Text style={styles.errorText}>{errors.name.message}</Text>
                 )}
