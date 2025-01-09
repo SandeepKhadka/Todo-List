@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, useColorScheme } from "react-native";
 import React, { useState } from "react";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
@@ -6,6 +6,8 @@ import { useFonts } from "expo-font";
 import TaskCard from "@/components/TaskCard";
 import TaskForm from "@/components/TaskForm";
 const Todo = () => {
+  const theme = useColorScheme();
+  const backgroundColor = theme === "light" ? "#50C2C9" : "white";
   const [openTaskForm, setTaskForm] = useState(false);
   const [updatedValue, setUpdatedValue] = useState("");
   const [fontsLoaded] = useFonts({
@@ -13,7 +15,12 @@ const Todo = () => {
   });
   return (
     <ThemedView style={{ flex: 1 }}>
-      <ThemedView style={styles.upperContainer}></ThemedView>
+      <ThemedView
+        style={{
+          flex: 0.4,
+          backgroundColor: theme === "light" ? "#50C2C9" : "white",
+        }}
+      ></ThemedView>
       <ThemedView style={styles.bottomContainer}>
         <ThemedView style={styles.topText}>
           {/* <ThemedText style={styles.greet}>Good Afternoon</ThemedText> */}
@@ -24,7 +31,7 @@ const Todo = () => {
               updatedValue={updatedValue}
               setUpdatedValue={setUpdatedValue}
               onPress={() => {
-                setUpdatedValue("")
+                setUpdatedValue("");
                 setTaskForm(false);
               }}
             />
@@ -57,10 +64,7 @@ const Todo = () => {
 export default Todo;
 
 const styles = StyleSheet.create({
-  upperContainer: {
-    flex: 0.4,
-    backgroundColor: "#50C2C9",
-  },
+  upperContainer: {},
   bottomContainer: { flex: 1, marginRight: 20, marginLeft: 20 },
   topText: {},
   greet: {

@@ -15,8 +15,11 @@ import { useFonts } from "expo-font";
 import { useForm } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function TaskCard({ openTaskForm, setTaskForm, setUpdatedValue }: any) {
-  const [isChecked, setChecked] = useState(false);
+export default function TaskCard({
+  openTaskForm,
+  setTaskForm,
+  setUpdatedValue,
+}: any) {
   const [data, setData] = useState([]);
   const {
     control,
@@ -120,21 +123,20 @@ export default function TaskCard({ openTaskForm, setTaskForm, setUpdatedValue }:
                 onValueChange={() => toggleCheckbox(index)}
                 color={item.isChecked ? "#4630EB" : undefined}
               />
-              <Text
+              <TouchableOpacity
                 style={{
                   marginLeft: 10,
-                  fontFamily: "Poppins-SemiBold",
+                  fontFamily: "Poppins-SemsiBold",
                   fontSize: 12,
-                  width: "100%",
                 }}
                 onPress={() => toggleCheckbox(index)}
                 onLongPress={() => {
-                  setUpdatedValue(item)
+                  setUpdatedValue(item);
                   setTaskForm(true);
                 }}
               >
-                {item.task_name}
-              </Text>
+                <Text>{item.task_name}</Text>
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => deleteTodo(index)}
                 style={{
@@ -195,6 +197,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     margin: 10,
+    overflow: 'hidden'
   },
   container: { width: "100%", padding: 10 },
   input: {

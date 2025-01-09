@@ -1,11 +1,21 @@
-import React, { useCallback, useRef } from "react";
-import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import React, { useCallback, useRef, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  Pressable,
+} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import { Controller, useForm } from "react-hook-form";
 import { CloseTaskForm } from "./TaskCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useColorScheme } from "@/hooks/useColorScheme.web";
+import { FontAwesome } from "@expo/vector-icons";
 
 const TaskForm = ({
   onPress,
@@ -16,7 +26,9 @@ const TaskForm = ({
   updatedValue: any;
   setUpdatedValue: any;
 }) => {
-  // ref
+  const [charCount, setCharCount] = useState(0);
+  const [taskLength, setTaskLength] = useState(updatedValue?.task_name?.length);
+
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // callbacks
@@ -108,7 +120,11 @@ const TaskForm = ({
             >
               <View style={styles.formContainer}>
                 <Text style={{ marginBottom: 10, fontSize: 18 }}>
-                  Add/Update Task
+                  {updatedValue !== "" ? "Update Task" : "Add Task"}{" "}
+                  <Text style={{ fontSize: "12" }}>
+                    ({(updatedValue !== "" ? taskLength : charCount) + "/" + 30}
+                    )
+                  </Text>
                 </Text>
                 {/* Form Girdileri */}
                 <Controller
@@ -120,28 +136,58 @@ const TaskForm = ({
                         style={styles.input}
                         placeholder="Task Name"
                         onChangeText={(text) => {
-                          setUpdatedValue(text)
+                          setCharCount(text.length);
+                          setTaskLength(text.length);
                           onChange(text);
                         }}
-                        value={
+                        defaultValue={
                           updatedValue !== "" ? updatedValue.task_name : value
                         } // For editing or adding new
+                        maxLength={30}
                         keyboardType="default"
-                        multiline={false}
-                        
+                        multiline={true}
                       />
                     </>
                   )}
                   name="task_name"
                   rules={{ required: "You must enter task name" }}
                 />
-
                 {errors.name && (
                   <Text style={styles.errorText}>{errors.name.message}</Text>
                 )}
-                {/* Submit Butonu */}
-                <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+                <Pressable
+                  style={{
+                    paddingVertical: 8,
+                    backgroundColor: "black",
+                    borderRadius: 30,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    gap: 8,
+                  }}
+                  onPress={handleSubmit(onSubmit)}
+                >
+                  <View style={{ marginTop: 5 }}>
+                    <FontAwesome size={20} name="send" color={"#ffffff"} />
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: 600,
+                        color: "#ffffff",
+                      }}
+                    >
+                      Submit
+                    </Text>
+                  </View>
+                </Pressable>
+                <Pressable
+                  onPress={handleSubmit(onSubmit)}
+                  style={{ borderRadius: "20" }}
+                />
 
+                <Pressable />
                 {/* Gönderilen Veriler */}
               </View>
             </Animated.View>
