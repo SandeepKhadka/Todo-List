@@ -18,7 +18,7 @@ const Todo = () => {
       <ThemedView
         style={{
           flex: 0.4,
-          backgroundColor: theme === "light" ? "#50C2C9" : "white",
+          backgroundColor: theme === "light" ? "#50C2C9" : "#1A5A5E",
         }}
       ></ThemedView>
       <ThemedView style={styles.bottomContainer}>
