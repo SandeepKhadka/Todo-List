@@ -16,6 +16,7 @@ import { CloseTaskForm } from "./TaskCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useColorScheme } from "@/hooks/useColorScheme.web";
 import { FontAwesome } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 
 const TaskForm = ({
   onPress,
@@ -26,6 +27,9 @@ const TaskForm = ({
   updatedValue: any;
   setUpdatedValue: any;
 }) => {
+  const [fontsLoaded] = useFonts({
+    "Poppins-SemiBold": require("../assets/fonts/Poppins SemiBold.ttf"),
+  });
   const [charCount, setCharCount] = useState(0);
   const [taskLength, setTaskLength] = useState(updatedValue?.task_name?.length);
 
@@ -119,9 +123,17 @@ const TaskForm = ({
               }}
             >
               <View style={styles.formContainer}>
-                <Text style={{ marginBottom: 10, fontSize: 18 }}>
+                <Text
+                  style={{
+                    marginBottom: 10,
+                    fontSize: 18,
+                    fontFamily: "Poppins-SemsiBold",
+                  }}
+                >
                   {updatedValue !== "" ? "Update Task" : "Add Task"}{" "}
-                  <Text style={{ fontSize: "12" }}>
+                  <Text
+                    style={{ fontSize: "12", fontFamily: "Poppins-SemsiBold" }}
+                  >
                     ({(updatedValue !== "" ? taskLength : charCount) + "/" + 30}
                     )
                   </Text>
@@ -176,6 +188,7 @@ const TaskForm = ({
                         fontSize: 20,
                         fontWeight: 600,
                         color: "#ffffff",
+                        fontFamily: "Poppins-SemsiBold",
                       }}
                     >
                       Submit
@@ -218,10 +231,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 8,
     color: "black",
+    fontFamily: "Poppins-SemsiBold",
   },
   errorText: {
     color: "red",
     marginBottom: 10,
+    fontFamily: "Poppins-SemsiBold",
   },
 });
 

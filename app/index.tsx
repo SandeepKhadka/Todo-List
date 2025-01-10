@@ -1,4 +1,4 @@
-import { StyleSheet, useColorScheme } from "react-native";
+import { Image, StyleSheet, useColorScheme } from "react-native";
 import React, { useState } from "react";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
@@ -18,9 +18,22 @@ const Todo = () => {
       <ThemedView
         style={{
           flex: 0.4,
-          backgroundColor: theme === "light" ? "#50C2C9" : "#1A5A5E",
+          backgroundColor: theme === "light" ? "#50C2C9" : "#fefefe",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 5
         }}
-      ></ThemedView>
+      >
+        <ThemedView style={styles.profileCircle}>
+          <Image source={require("../assets/images/user.png")} />
+        </ThemedView>
+        <ThemedText
+          style={{ color: theme === "light" ? "black" : "black", fontSize: 20, fontWeight: 'bold',  }}
+          type="title"
+        >
+          Welcome User
+        </ThemedText>
+      </ThemedView>
       <ThemedView style={styles.bottomContainer}>
         <ThemedView style={styles.topText}>
           {/* <ThemedText style={styles.greet}>Good Afternoon</ThemedText> */}
@@ -75,5 +88,14 @@ const styles = StyleSheet.create({
   task: {
     marginTop: 10,
     flex: 0.95,
+  },
+  profileCircle: {
+    width: 100, // Diameter of the circle
+    height: 100,
+    borderRadius: 50, // Half of width/height
+    borderWidth: 1, // Thickness of the border
+    borderColor: "black", // Border color
+    justifyContent: "center", // Optional, for aligning content inside
+    alignItems: "center", // Optional, for aligning content inside
   },
 });
