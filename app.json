@@ -9,14 +9,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.slimsandy.TodoList"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.slimsandy.TodoList"
     },
     "web": {
       "bundler": "metro",
@@ -37,12 +39,22 @@
       [
         "expo-font",
         {
-          "assets": ["./assets/fonts/Poppins SemiBold.ttf"]
+          "assets": [
+            "./assets/fonts/Poppins SemiBold.ttf"
+          ]
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fd6ba0a4-5138-4f2e-87f1-8a960886a6a5"
+      }
     }
   }
 }
