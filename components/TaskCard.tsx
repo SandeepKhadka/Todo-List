@@ -121,7 +121,7 @@ export default function TaskCard({
               <Checkbox
                 value={item.isChecked}
                 onValueChange={() => toggleCheckbox(index)}
-                color={item.isChecked ? "#4630EB" : undefined}
+                color={item.isChecked ? "#03950f80" : undefined}
               />
               <TouchableOpacity
                 style={{
@@ -135,7 +135,7 @@ export default function TaskCard({
                   setTaskForm(true);
                 }}
               >
-                <Text>{item.task_name}</Text>
+                <Text style={{fontFamily: "Poppins-SemiBold", fontSize: 12}}>{item.task_name}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => deleteTodo(index)}
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     justifyContent: "space-between",
     flexDirection: "row",
+    fontFamily: "Poppins-SemsiBold",
   },
   taskLists: {
     flexDirection: "row",
@@ -207,6 +208,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 8,
     color: "black",
+    fontFamily: "Poppins-SemsiBold",
   },
   errorText: {
     color: "red",

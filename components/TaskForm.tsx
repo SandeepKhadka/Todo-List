@@ -127,12 +127,12 @@ const TaskForm = ({
                   style={{
                     marginBottom: 10,
                     fontSize: 18,
-                    fontFamily: "Poppins-SemsiBold",
+                    fontFamily: "Poppins-SemiBold",
                   }}
                 >
                   {updatedValue !== "" ? "Update Task" : "Add Task"}{" "}
                   <Text
-                    style={{ fontSize: "12", fontFamily: "Poppins-SemsiBold" }}
+                    style={{ fontSize: "12", fontFamily: "Poppins-SemiBold" }}
                   >
                     ({(updatedValue !== "" ? taskLength : charCount) + "/" + 30}
                     )
@@ -185,10 +185,10 @@ const TaskForm = ({
                   <View>
                     <Text
                       style={{
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: 600,
                         color: "#ffffff",
-                        fontFamily: "Poppins-SemsiBold",
+                        fontFamily: "Poppins-SemiBold",
                       }}
                     >
                       Submit
@@ -231,12 +231,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 8,
     color: "black",
-    fontFamily: "Poppins-SemsiBold",
+    fontFamily: "Poppins-SemiBold",
   },
   errorText: {
     color: "red",
     marginBottom: 10,
-    fontFamily: "Poppins-SemsiBold",
+    fontFamily: "Poppins-SemiBold",
   },
 });
 

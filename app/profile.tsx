@@ -62,7 +62,7 @@ function AuthButton({ label, icon }: { label: string; icon: any }) {
       <ThemedView style={{ backgroundColor: "none" }}>
         <ThemedText
           style={{
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: 600,
             color: theme === "dark" ? "#000000" : "#ffffff",
           }}
@@ -146,7 +146,7 @@ function ThemeButton({
       <ThemedView>
         <ThemedText
           style={{
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: 500,
           }}
         >
@@ -163,16 +163,16 @@ function About() {
       <ThemedText style={styles.textBig}>About</ThemedText>
       <ThemedView style={styles.innerAboutLinks}>
         <Link href="/" style={styles.aboutLinks}>
-          <ThemedText style={{ fontSize: 18 }}>Account</ThemedText>
+          <ThemedText style={{ fontSize: 16 }}>Account</ThemedText>
         </Link>
         <Link href="/" style={styles.aboutLinks}>
-          <ThemedText style={{ fontSize: 18 }}>Privacy and Policy</ThemedText>
+          <ThemedText style={{ fontSize: 16 }}>Privacy and Policy</ThemedText>
         </Link>
         <Link href="/" style={styles.aboutLinks}>
-          <ThemedText style={{ fontSize: 18 }}>Terms and Services</ThemedText>
+          <ThemedText style={{ fontSize: 16 }}>Terms and Services</ThemedText>
         </Link>
         <Link href="/" style={styles.aboutLinks}>
-          <ThemedText style={{ fontSize: 18 }}>Licenes</ThemedText>
+          <ThemedText style={{ fontSize: 16 }}>Licences</ThemedText>
         </Link>
       </ThemedView>
     </ThemedView>
@@ -185,11 +185,11 @@ const styles = StyleSheet.create({
   },
   textBig: {
     paddingTop: 20,
-    fontSize: 34,
+    fontSize: 24,
     fontWeight: "bold",
   },
   textSmall: {
-    fontSize: 16,
+    fontSize: 14,
   },
   themeContainer: {
     flex: 1,

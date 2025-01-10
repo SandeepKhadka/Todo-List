@@ -28,7 +28,7 @@ const Todo = () => {
           <Image source={require("../assets/images/user.png")} />
         </ThemedView>
         <ThemedText
-          style={{ color: theme === "light" ? "black" : "black", fontSize: 20, fontWeight: 'bold',  }}
+          style={{ color: theme === "light" ? "black" : "black", fontSize: 20, fontWeight: 'bold',fontFamily: "Poppins-SemiBold"}}
           type="title"
         >
           Welcome User
