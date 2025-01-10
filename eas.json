@@ -9,9 +9,13 @@
       "distribution": "internal"
     },
     "preview": {
+      "releaseChannel": "production",
+      "developmentClient": false,
       "distribution": "internal"
     },
     "production": {
+      "releaseChannel": "production",
+      "developmentClient": false,
       "autoIncrement": true
     }
   },

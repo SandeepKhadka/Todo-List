@@ -54,10 +54,7 @@ const TaskModal = ({ onPress }: { onPress: () => void }) => {
               name="task_name"
               rules={{ required: "You must enter task name" }}
             />
-            {/* {errors.name && (
-            <Text style={styles.errorText}>{errors.name.message}</Text>
-          )} */}
-            {/* Submit Butonu */}
+            
             <Button title="Submit" />
 
             {/* Gönderilen Veriler */}

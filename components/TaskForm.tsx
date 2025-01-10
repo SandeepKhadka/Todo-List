@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  Button,
   Alert,
   Pressable,
 } from "react-native";
@@ -14,14 +13,12 @@ import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import { Controller, useForm } from "react-hook-form";
 import { CloseTaskForm } from "./TaskCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useColorScheme } from "@/hooks/useColorScheme.web";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
 const TaskForm = ({
   onPress,
   updatedValue,
-  setUpdatedValue,
 }: {
   onPress: () => void;
   updatedValue: any;
@@ -46,22 +43,18 @@ const TaskForm = ({
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    // Check if we are editing an existing todo or adding a new one
     if (updatedValue) {
-      // This means you're in edit mode and need to update an existing todo
       try {
         const todos = await AsyncStorage.getItem("data");
         const allTodos = todos != null ? JSON.parse(todos) : [];
         console.log("I am here at update");
         console.log(updatedValue.id);
-        // Find the todo to update using the ID and update it
         const updatedTodos = allTodos.map((todo: any) =>
           todo.id === updatedValue.id
             ? { ...todo, task_name: data.task_name, isChecked: false }
             : todo
         );
 
-        // Save the updated todos list to AsyncStorage
         await AsyncStorage.setItem("data", JSON.stringify(updatedTodos));
 
         Alert.alert("Todo Updated Successfully");
@@ -71,7 +64,6 @@ const TaskForm = ({
         Alert.alert(`Error: Failed to update data`);
       }
     } else {
-      // This block handles the creation of a new todo
       const todosData = [
         { ...data, isChecked: false, id: Date.now().toString() },
       ];
@@ -110,8 +102,6 @@ const TaskForm = ({
               alignItems: "center",
             }}
           >
-            {/* Dismiss modal when pressing outside */}
-
             <Animated.View
               entering={SlideInDown}
               style={{
@@ -138,12 +128,10 @@ const TaskForm = ({
                     )
                   </Text>
                 </Text>
-                {/* Form Girdileri */}
                 <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <>
-                      {/* Conditionally render TextInput for edit or new task */}
                       <TextInput
                         style={styles.input}
                         placeholder="Task Name"
@@ -201,7 +189,6 @@ const TaskForm = ({
                 />
 
                 <Pressable />
-                {/* Gönderilen Veriler */}
               </View>
             </Animated.View>
           </Animated.View>

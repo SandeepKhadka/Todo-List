@@ -7,7 +7,6 @@ import TaskCard from "@/components/TaskCard";
 import TaskForm from "@/components/TaskForm";
 const Todo = () => {
   const theme = useColorScheme();
-  const backgroundColor = theme === "light" ? "#50C2C9" : "white";
   const [openTaskForm, setTaskForm] = useState(false);
   const [updatedValue, setUpdatedValue] = useState("");
   const [fontsLoaded] = useFonts({
@@ -48,11 +47,6 @@ const Todo = () => {
                 setTaskForm(false);
               }}
             />
-            // <TaskModal
-            //   onPress={() => {
-            //     setTaskForm(false);
-            //   }}
-            // />
           )}
           <ThemedText
             style={{
@@ -90,12 +84,12 @@ const styles = StyleSheet.create({
     flex: 0.95,
   },
   profileCircle: {
-    width: 100, // Diameter of the circle
+    width: 100, 
     height: 100,
-    borderRadius: 50, // Half of width/height
-    borderWidth: 1, // Thickness of the border
-    borderColor: "black", // Border color
-    justifyContent: "center", // Optional, for aligning content inside
-    alignItems: "center", // Optional, for aligning content inside
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "black", 
+    justifyContent: "center", 
+    alignItems: "center",
   },
 });

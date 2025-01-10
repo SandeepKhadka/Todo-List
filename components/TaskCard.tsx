@@ -31,26 +31,9 @@ export default function TaskCard({
   });
   const loadAndCombineData = async () => {
     try {
-      // Load data from AsyncStorage
       const todosData = await AsyncStorage.getItem("data");
       const existingTodos = todosData ? JSON.parse(todosData) : [];
 
-      // Default task data
-      // const taskData = [
-      //   "Wake up at 7am",
-      //   "Learn DSA by 9am",
-      //   "Do the chores by 12pm",
-      //   "Start coding after 12pm",
-      //   "Do Coding up to 5pm",
-      //   "Eat meal for gym by 6pm",
-      //   "Go to gym and return by 8pm",
-      //   "Do chores by 9pm",
-      //   "Learn new topics by 10pm",
-      //   "Learn Book by 11pm",
-      //   "Go to Sleep after 11pm",
-      // ];
-
-      // Combine data
       const combinedData: any = [...existingTodos];
 
       setData(combinedData);
@@ -86,7 +69,6 @@ export default function TaskCard({
     try {
       await AsyncStorage.setItem("data", JSON.stringify(updatedData));
       setData(updatedData);
-      // Alert.alert("Deleted", "The task has been deleted.");
     } catch (error) {
       console.error("Error deleting task:", error);
       Alert.alert("Error", "Failed to delete task.");
@@ -113,43 +95,53 @@ export default function TaskCard({
             }}
           />
         </View>
-        <FlatList
-          data={data}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <View style={styles.taskLists}>
-              <Checkbox
-                value={item.isChecked}
-                onValueChange={() => toggleCheckbox(index)}
-                color={item.isChecked ? "#03950f80" : undefined}
-              />
-              <TouchableOpacity
-                style={{
-                  marginLeft: 10,
-                  fontFamily: "Poppins-SemsiBold",
-                  fontSize: 12,
-                }}
-                onPress={() => toggleCheckbox(index)}
-                onLongPress={() => {
-                  setUpdatedValue(item);
-                  setTaskForm(true);
-                }}
-              >
-                <Text style={{fontFamily: "Poppins-SemiBold", fontSize: 12}}>{item.task_name}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => deleteTodo(index)}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 12,
-                }}
-              >
-                <FontAwesome size={20} name="close" color={"#fb0404d9"} />
-              </TouchableOpacity>
-            </View>
-          )}
-        />
+        {data.length !== 0 ? (
+          <FlatList
+            data={data}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => (
+              <View style={styles.taskLists}>
+                <Checkbox
+                  value={item.isChecked}
+                  onValueChange={() => toggleCheckbox(index)}
+                  color={item.isChecked ? "#03950f80" : undefined}
+                />
+                <TouchableOpacity
+                  style={{
+                    marginLeft: 10,
+                    fontFamily: "Poppins-SemsiBold",
+                    fontSize: 12,
+                  }}
+                  onPress={() => toggleCheckbox(index)}
+                  onLongPress={() => {
+                    setUpdatedValue(item);
+                    setTaskForm(true);
+                  }}
+                >
+                  <Text
+                    style={{ fontFamily: "Poppins-SemiBold", fontSize: 12 }}
+                  >
+                    {item.task_name}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => deleteTodo(index)}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 12,
+                  }}
+                >
+                  <FontAwesome size={20} name="close" color={"#fb0404d9"} />
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        ) : (
+          <Text style={{ textAlign: "center", fontSize: 20, marginVertical: "auto", color:"#a3a0a0" }}>
+            Let's Get Started
+          </Text>
+        )}
       </View>
     </>
   );
@@ -198,7 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     margin: 10,
-    overflow: 'hidden'
+    overflow: "hidden",
   },
   container: { width: "100%", padding: 10 },
   input: {

@@ -2,21 +2,16 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import {
   Appearance,
-  Button,
   Pressable,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedText } from "../components/ThemedText";
 import { ThemedView } from "../components/ThemedView";
 import { Colors } from "../constants/Colors";
 import { Link } from "expo-router";
 
 export default function Profile() {
-  const [pictureOpen, setPictureOpen] = useState(false);
   return (
     <ThemedView style={{ flex: 1 }}>
       <Header />
