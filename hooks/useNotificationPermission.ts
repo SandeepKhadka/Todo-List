@@ -1,10 +1,13 @@
-import * as Notifications from 'expo-notifications';
+import * as Notifications from "expo-notifications";
+import { Alert } from "react-native";
 
-const requestNotificationPermission = async () => {
+const useNotificationPermission = async () => {
   const { status } = await Notifications.requestPermissionsAsync();
-  if (status === 'granted') {
-    console.log('Notification permission granted');
+  if (status === "granted") {
+    console.log("Notification permission granted");
   } else {
-    Alert.alert('Permission Denied', 'Notification access is required.');
+    Alert.alert("Permission Denied", "Notification access is required.");
   }
 };
+
+export default useNotificationPermission;

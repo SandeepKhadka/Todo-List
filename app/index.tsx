@@ -1,11 +1,12 @@
 import { Image, StyleSheet, useColorScheme } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { useFonts } from "expo-font";
 import TaskCard from "@/components/TaskCard";
 import TaskForm from "@/components/TaskForm";
 import useStoragePermission from "@/hooks/useStoragePermission";
+import useNotificationPermission from "@/hooks/useNotificationPermission";
 const Todo = () => {
   const theme = useColorScheme();
   const [openTaskForm, setTaskForm] = useState(false);
@@ -13,6 +14,10 @@ const Todo = () => {
   const [fontsLoaded] = useFonts({
     "Poppins-SemiBold": require("../assets/fonts/Poppins SemiBold.ttf"),
   });
+  useEffect(() => {
+    useStoragePermission();
+    useNotificationPermission();
+  }, []);
   return (
     <ThemedView style={{ flex: 1 }}>
       <ThemedView
