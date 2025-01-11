@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import { useForm } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useStoragePermission from "@/hooks/useStoragePermission";
+import * as MediaLibrary from "expo-media-library";
 
 export default function TaskCard({
   openTaskForm,
@@ -90,8 +92,15 @@ export default function TaskCard({
             Daily Task
           </ThemedText>
           <AddTask
-            onPress={() => {
-              setTaskForm(true);
+            onPress={async () => {
+              const status = await useStoragePermission();
+              console.log(status);
+              
+              if (status === "granted") {
+                setTaskForm(true);
+              }else{
+                
+              }
             }}
           />
         </View>

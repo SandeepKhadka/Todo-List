@@ -17,7 +17,7 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["android.permission.POST_NOTIFICATIONS","android.permission.WRITE_EXTERNAL_STORAGE"],
+      "permissions": ["android.permission.WRITE_EXTERNAL_STORAGE","NOTIFICATIONS"],
       "enableHermes": true,
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.slimsandy.TodoList"
