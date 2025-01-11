@@ -17,6 +17,7 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": ["android.permission.POST_NOTIFICATIONS","android.permission.WRITE_EXTERNAL_STORAGE"],
       "enableHermes": true,
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.slimsandy.TodoList"
@@ -40,9 +41,7 @@
       [
         "expo-font",
         {
-          "assets": [
-            "./assets/fonts/Poppins SemiBold.ttf"
-          ]
+          "assets": ["./assets/fonts/Poppins SemiBold.ttf"]
         }
       ]
     ],

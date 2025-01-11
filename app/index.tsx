@@ -5,6 +5,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { useFonts } from "expo-font";
 import TaskCard from "@/components/TaskCard";
 import TaskForm from "@/components/TaskForm";
+import useStoragePermission from "@/hooks/useStoragePermission";
 const Todo = () => {
   const theme = useColorScheme();
   const [openTaskForm, setTaskForm] = useState(false);
@@ -20,14 +21,19 @@ const Todo = () => {
           backgroundColor: theme === "light" ? "#50C2C9" : "#fefefe",
           justifyContent: "center",
           alignItems: "center",
-          gap: 5
+          gap: 5,
         }}
       >
         <ThemedView style={styles.profileCircle}>
           <Image source={require("../assets/images/user.png")} />
         </ThemedView>
         <ThemedText
-          style={{ color: theme === "light" ? "black" : "black", fontSize: 20, fontWeight: 'bold',fontFamily: "Poppins-SemiBold"}}
+          style={{
+            color: theme === "light" ? "black" : "black",
+            fontSize: 20,
+            fontWeight: "bold",
+            fontFamily: "Poppins-SemiBold",
+          }}
           type="title"
         >
           Welcome User
@@ -44,6 +50,7 @@ const Todo = () => {
               setUpdatedValue={setUpdatedValue}
               onPress={() => {
                 setUpdatedValue("");
+                useStoragePermission();
                 setTaskForm(false);
               }}
             />
@@ -84,12 +91,12 @@ const styles = StyleSheet.create({
     flex: 0.95,
   },
   profileCircle: {
-    width: 100, 
+    width: 100,
     height: 100,
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: "black", 
-    justifyContent: "center", 
+    borderColor: "black",
+    justifyContent: "center",
     alignItems: "center",
   },
 });

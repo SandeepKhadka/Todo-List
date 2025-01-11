@@ -128,8 +128,8 @@ export default function TaskCard({
                   onPress={() => deleteTodo(index)}
                   style={{
                     position: "absolute",
-                    top: 0,
-                    right: 12,
+                    top: -1,
+                    right: 0,
                   }}
                 >
                   <FontAwesome size={20} name="close" color={"#fb0404d9"} />
@@ -138,7 +138,14 @@ export default function TaskCard({
             )}
           />
         ) : (
-          <Text style={{ textAlign: "center", fontSize: 20, marginVertical: "auto", color:"#a3a0a0" }}>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 20,
+              marginVertical: "auto",
+              color: "#a3a0a0",
+            }}
+          >
             Let's Get Started
           </Text>
         )}
@@ -188,11 +195,12 @@ const styles = StyleSheet.create({
   },
   taskLists: {
     flexDirection: "row",
-    width: "100%",
-    margin: 10,
+    marginHorizontal: 4,
+    marginVertical: 10,
     overflow: "hidden",
+    textAlign: "center",
   },
-  container: { width: "100%", padding: 10 },
+  container: { padding: 10 },
   input: {
     height: 40,
     borderColor: "gray",
