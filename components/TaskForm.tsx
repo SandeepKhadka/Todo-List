@@ -144,8 +144,7 @@ const TaskForm = ({
                           updatedValue !== "" ? updatedValue.task_name : value
                         } // For editing or adding new
                         maxLength={30}
-                        keyboardType="default"
-                        multiline={true}
+                        
                       />
                     </>
                   )}

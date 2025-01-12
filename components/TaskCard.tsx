@@ -15,7 +15,7 @@ import { useFonts } from "expo-font";
 import { useForm } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStoragePermission from "@/hooks/useStoragePermission";
-import * as MediaLibrary from "expo-media-library";
+import DragAndDropCard from "./DragandDrop";
 
 export default function TaskCard({
   openTaskForm,
@@ -77,6 +77,13 @@ export default function TaskCard({
     }
   };
 
+  const requestStoragePermission = async () => {
+    const status = await useStoragePermission();
+
+    if (status === "granted") {
+      setTaskForm(true);
+    }
+  };
   return (
     <>
       <View style={styles.taskCard}>
@@ -91,18 +98,7 @@ export default function TaskCard({
           >
             Daily Task
           </ThemedText>
-          <AddTask
-            onPress={async () => {
-              const status = await useStoragePermission();
-              console.log(status);
-              
-              if (status === "granted") {
-                setTaskForm(true);
-              }else{
-                
-              }
-            }}
-          />
+          <AddTask onPress={requestStoragePermission} />
         </View>
         {data.length !== 0 ? (
           <FlatList
@@ -130,7 +126,8 @@ export default function TaskCard({
                   <Text
                     style={{ fontFamily: "Poppins-SemiBold", fontSize: 12 }}
                   >
-                    {item.task_name}
+                    <DragAndDropCard title={item.task_name}/>
+                    {/* {item.task_name} */}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
