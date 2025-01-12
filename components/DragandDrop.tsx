@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { View, StyleSheet, PanResponder, Animated, Text } from "react-native";
 
 interface DragAndDropCardProps {
-  container: React.ReactNode; 
+  container: React.ReactNode;
 }
 
 const DragAndDropCard: React.FC<DragAndDropCardProps> = ({ container }) => {
@@ -21,8 +21,8 @@ const DragAndDropCard: React.FC<DragAndDropCardProps> = ({ container }) => {
         [
           null,
           {
-            dx: position.x,
-            dy: position.y,
+            dx: new Animated.Value(0), // Keep dx fixed at 0 (no horizontal movement)
+            dy: position.y, // Allow movement only in y-axis
           },
         ],
         { useNativeDriver: false }
@@ -37,13 +37,13 @@ const DragAndDropCard: React.FC<DragAndDropCardProps> = ({ container }) => {
     <Animated.View
       style={[
         {
-          transform: position.getTranslateTransform(),
+          transform: [{ translateX: 0 }, { translateY: position.y }], // Restrict movement to the Y-axis
           opacity: dragging ? 0.8 : 1,
         },
       ]}
       {...panResponder.panHandlers}
     >
-      <Text>{title}</Text>
+      {container}
     </Animated.View>
   );
 };

@@ -105,42 +105,45 @@ export default function TaskCard({
             data={data}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View style={styles.taskLists}>
-                <Checkbox
-                  value={item.isChecked}
-                  onValueChange={() => toggleCheckbox(index)}
-                  color={item.isChecked ? "#03950f80" : undefined}
-                />
-                <TouchableOpacity
-                  style={{
-                    marginLeft: 10,
-                    fontFamily: "Poppins-SemsiBold",
-                    fontSize: 12,
-                  }}
-                  onPress={() => toggleCheckbox(index)}
-                  onLongPress={() => {
-                    setUpdatedValue(item);
-                    setTaskForm(true);
-                  }}
-                >
-                  <Text
-                    style={{ fontFamily: "Poppins-SemiBold", fontSize: 12 }}
-                  >
-                    <DragAndDropCard title={item.task_name}/>
-                    {/* {item.task_name} */}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => deleteTodo(index)}
-                  style={{
-                    position: "absolute",
-                    top: -1,
-                    right: 0,
-                  }}
-                >
-                  <FontAwesome size={20} name="close" color={"#fb0404d9"} />
-                </TouchableOpacity>
-              </View>
+              <DragAndDropCard
+                container={
+                  <View style={styles.taskLists}>
+                    <Checkbox
+                      value={item.isChecked}
+                      onValueChange={() => toggleCheckbox(index)}
+                      color={item.isChecked ? "#03950f80" : undefined}
+                    />
+                    <TouchableOpacity
+                      style={{
+                        marginLeft: 10,
+                        fontFamily: "Poppins-SemsiBold",
+                        fontSize: 12,
+                      }}
+                      onPress={() => toggleCheckbox(index)}
+                      onLongPress={() => {
+                        setUpdatedValue(item);
+                        setTaskForm(true);
+                      }}
+                    >
+                      <Text
+                        style={{ fontFamily: "Poppins-SemiBold", fontSize: 12 }}
+                      >
+                        {item.task_name}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => deleteTodo(index)}
+                      style={{
+                        position: "absolute",
+                        top: -1,
+                        right: 0,
+                      }}
+                    >
+                      <FontAwesome size={20} name="close" color={"#fb0404d9"} />
+                    </TouchableOpacity>
+                  </View>
+                }
+              />
             )}
           />
         ) : (
